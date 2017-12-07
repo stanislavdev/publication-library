@@ -12,7 +12,7 @@ public interface DataAccessObject {
                                                String name, java.sql.Date publicationDate);
 
     public List<Publication> searchReferencePublications(int publicationId);
-    public List<Publication> createListOfPublication();
+    public List<Publication> findAllPublications();
 
     void close();
 }
