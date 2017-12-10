@@ -12,7 +12,7 @@ import java.util.List;
 public class JSPLoader {
     public String tableToHtmlSelect() {
         PublicationDAO dataAccessObject = new PublicationDAO();
-        return createFullTableFromList(dataAccessObject.createFullListOfPublication());
+        return createFullTableFromList(dataAccessObject.findAllPublications());
     }
 
     private String createFullTableFromList(List<Publication> publications) {
