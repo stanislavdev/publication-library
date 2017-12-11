@@ -15,4 +15,12 @@ public class PaperPublication extends Publication {
         super(id, numberOfPages, author, name, publicationDate, references, keyWords);
         this.nameOfpaperMagazine = nameOfMagazine;
     }
+
+    public void setNameOfpaperMagazine(String nameOfpaperMagazine) {
+        this.nameOfpaperMagazine = nameOfpaperMagazine;
+    }
+
+    public String getNameOfpaperMagazine() {
+        return nameOfpaperMagazine;
+    }
 }

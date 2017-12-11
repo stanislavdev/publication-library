@@ -45,18 +45,23 @@ public class PublicationDAO implements GenericDAO {
     }
 
     @Override
-    public List<Publication> findAllPublications() {
-        ResultSet resultSet = QueryExecuter.execute(queryForFullTable());
-        List<Publication> references = new ArrayList<>();
-        try {
-            while (resultSet.next()) {
-                references.add(Publication.parsePublication(resultSet));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return references;
+    public List findAllPublications() {
+        return null;
     }
+
+//    @Override
+//    public List<Publication> findAllPublications() {
+//        ResultSet resultSet = QueryExecuter.execute(queryForFullTable());
+//        List<Publication> references = new ArrayList<>();
+//        try {
+//            while (resultSet.next()) {
+//                references.add(Publication.parsePublication(resultSet));
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return references;
+//    }
 
     @Override
     public void close() {

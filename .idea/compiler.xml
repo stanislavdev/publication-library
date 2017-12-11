@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="publicationLibrary" />
+        <module name="publication-Library" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="publicationLibrary" target="1.8" />
+      <module name="publication-Library" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

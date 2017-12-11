@@ -31,6 +31,7 @@
 <form action="index.jsp">
     <%! JSPLoader loader = new JSPLoader(); %>
     <table>
+        Digital publications:
         <%= loader.tableToHtmlSelect() %>
     </table>
 </form>

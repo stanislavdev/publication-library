@@ -17,6 +17,9 @@ public class Publication {
     private List<Publication> references;
     private List<Word> keyWords;
 
+    public Publication() {
+    }
+
     public Publication(int id, int numberOfPages, String author,
                        String name, Date publicationDate,
                        List<Publication> references, List<Word> keyWords) {
@@ -55,5 +58,46 @@ public class Publication {
 
     public List<Word> getKeyWords() {
         return keyWords;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNumberOfPages(int numberOfPages) {
+        this.numberOfPages = numberOfPages;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPublicationDate(Date publicationDate) {
+        this.publicationDate = publicationDate;
+    }
+
+    public void setReferences(List<Publication> references) {
+        this.references = references;
+    }
+
+    public void setKeyWords(List<Word> keyWords) {
+        this.keyWords = keyWords;
+    }
+
+    @Override
+    public String toString() {
+        return "Publication{" +
+                "id=" + id +
+                ", numberOfPages=" + numberOfPages +
+                ", author='" + author + '\'' +
+                ", name='" + name + '\'' +
+                ", publicationDate=" + publicationDate +
+                ", references=" + references +
+                ", keyWords=" + keyWords +
+                '}';
     }
 }

@@ -1,7 +1,10 @@
 package controller;
 
 
+import model.dao.DigitalPublicationDAO;
+import model.dbservices.MySQLFactory;
 import model.dbservices.PublicationDAO;
+import model.entity.DigitalPublication;
 import model.entity.Publication;
 
 import java.util.List;
@@ -11,11 +14,12 @@ import java.util.List;
  */
 public class JSPLoader {
     public String tableToHtmlSelect() {
-        PublicationDAO dataAccessObject = new PublicationDAO();
-        return createFullTableFromList(dataAccessObject.findAllPublications());
+        MySQLFactory mySQLFactory = new MySQLFactory();
+        DigitalPublicationDAO digitalPublicationDAO = mySQLFactory.createDigitalPublicationDAO();
+        return createFullTableFromList(digitalPublicationDAO.findAllPublications());
     }
 
-    private String createFullTableFromList(List<Publication> publications) {
+    private String createFullTableFromList(List<DigitalPublication> publications) {
         String result = "";
         for (Publication publication : publications) {
             result += "<tr>" +

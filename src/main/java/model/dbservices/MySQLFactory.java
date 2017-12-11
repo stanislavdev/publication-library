@@ -15,7 +15,7 @@ public class MySQLFactory extends FactoryDAO {
 
     @Override
     public DigitalPublicationDAO createDigitalPublicationDAO() {
-        return new MySQLDigitalPublicationDAO(getConnection());
+        return new MySQLDigitalPublication(getConnection());
     }
 
     @Override
