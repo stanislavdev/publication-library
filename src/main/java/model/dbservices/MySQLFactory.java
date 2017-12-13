@@ -20,11 +20,12 @@ public class MySQLFactory extends FactoryDAO {
 
     @Override
     public PaperPublicationDao createPaperPublicationDao() {
-        return null;
+        return new MySQLPaperPublication(getConnection());
     }
 
     private Connection getConnection() {
         try {
+            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
             return DriverManager.getConnection(
                     Constants.DB_URL,
                     Constants.DB_USER,

@@ -9,6 +9,9 @@ import java.util.List;
 public class PaperPublication extends Publication {
     private String nameOfpaperMagazine;
 
+    public PaperPublication() {
+    }
+
     public PaperPublication(int id, int numberOfPages, String author, String name,
                             Date publicationDate, List<Publication> references,
                             List<Word> keyWords, String nameOfMagazine) {
@@ -22,5 +25,12 @@ public class PaperPublication extends Publication {
 
     public String getNameOfpaperMagazine() {
         return nameOfpaperMagazine;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "PaperPublication{" +
+                "nameOfpaperMagazine='" + nameOfpaperMagazine + '\'' +
+                '}';
     }
 }

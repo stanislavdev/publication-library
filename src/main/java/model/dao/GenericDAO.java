@@ -13,6 +13,4 @@ public interface GenericDAO<T extends Publication> {
 
     public List<T> searchReferencePublications(int publicationId);
     public List<T> findAllPublications();
-
-    void close();
 }

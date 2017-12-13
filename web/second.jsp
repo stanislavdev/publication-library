@@ -1,14 +1,14 @@
 <%@ page import="controller.JSPLoader" %><%--
   Created by IntelliJ IDEA.
   User: dvsta
-  Date: 03.12.2017
-  Time: 16:50
+  Date: 12.12.2017
+  Time: 1:14
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Library</title>
+    <title>Title</title>
     <style>
         #h2 {
             font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -73,10 +73,6 @@
             color: white;
         }
 
-        #labelID {
-            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        }
-
         input[type=text] {
             width: 7%;
             padding: 12px 20px;
@@ -91,22 +87,15 @@
         input[type=text]:focus {
             border: 3px solid #555;
         }
+
+        #label{
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        }
     </style>
 </head>
 <body>
-<form method="get" action="second.jsp">
-    <label id="labelID" for="refID">Show references publication by ID:</label>
-    <input type="search" id="refID" name="id">
-    <input type="submit" value="Show">
-</form>
-<form method="get" action="index.jsp">
-    <h2 id="h2">Search:</h2>
-    <label id="labelName" for="searchByName">Name:</label>
-    <input type="search" id="searchByName" name="name">
-    <input type="submit" value="Search">
-</form>
-<%= request.getParameter("name")%>
-<form action="index.jsp">
+<h2 id="label">References for publication №<%= request.getParameter("id") %> </h2>
+<form action="second.jsp">
     <%! JSPLoader loader = new JSPLoader(); %>
     <table id="publication">
         <td>Digital publications</td>
@@ -119,7 +108,8 @@
             <th>Internet link</th>
             <th>Size in bytes</th>
         </tr>
-        <%= loader.tableToHtmlSelectDigital() %>
+        <%= loader.tableToHtmlSelectDigitalReferences(
+                Integer.parseInt(request.getParameter("id"))) %>
     </table>
     <table id="publication2">
         <td>Paper publications</td>
@@ -131,7 +121,8 @@
             <th>Date</th>
             <th>Name of magazine</th>
         </tr>
-        <%= loader.tableToHtmlSelectPaper() %>
+        <%= loader.tableToHtmlSelectPaperReferences(
+                Integer.parseInt(request.getParameter("id"))) %>
     </table>
 </form>
 </body>

@@ -62,13 +62,4 @@ public class PublicationDAO implements GenericDAO {
 //        }
 //        return references;
 //    }
-
-    @Override
-    public void close() {
-        try {
-            DBConnection.getConnection().close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }
