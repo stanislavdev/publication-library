@@ -118,8 +118,10 @@
             <th>Date</th>
             <th>Internet link</th>
             <th>Size in bytes</th>
+            <th>Key word</th>
         </tr>
         <%= loader.tableToHtmlSelectDigital() %>
+
     </table>
     <table id="publication2">
         <td>Paper publications</td>

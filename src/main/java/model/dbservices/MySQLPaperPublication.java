@@ -3,6 +3,7 @@ package model.dbservices;
 import model.dao.PaperPublicationDao;
 import model.entity.DigitalPublication;
 import model.entity.PaperPublication;
+import model.entity.Word;
 
 import java.awt.print.Paper;
 import java.sql.*;

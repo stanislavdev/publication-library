@@ -1,8 +1,9 @@
 package model.dbservices;
 
-import model.dao.DigitalPublicationDAO;
+import model.dao.DigitalPublicationDao;
 import model.dao.FactoryDAO;
 import model.dao.PaperPublicationDao;
+import model.dao.WordDao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,13 +15,18 @@ import java.sql.SQLException;
 public class MySQLFactory extends FactoryDAO {
 
     @Override
-    public DigitalPublicationDAO createDigitalPublicationDAO() {
+    public DigitalPublicationDao createDigitalPublicationDao() {
         return new MySQLDigitalPublication(getConnection());
     }
 
     @Override
     public PaperPublicationDao createPaperPublicationDao() {
         return new MySQLPaperPublication(getConnection());
+    }
+
+    @Override
+    public WordDao createWordDao() {
+        return new MySQLWord(getConnection());
     }
 
     private Connection getConnection() {

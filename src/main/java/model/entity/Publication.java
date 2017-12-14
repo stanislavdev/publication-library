@@ -3,6 +3,7 @@ package model.entity;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public class Publication {
     private String name;
     private Date publicationDate;
     private List<Publication> references;
-    private List<Word> keyWords;
+    private List<Word> keyWords = new ArrayList<>();
 
     public Publication() {
     }
@@ -90,7 +91,7 @@ public class Publication {
 
     @Override
     public String toString() {
-        return "Publication{" +
+        return "Publication{" + System.identityHashCode(this) +
                 "id=" + id +
                 ", numberOfPages=" + numberOfPages +
                 ", author='" + author + '\'' +

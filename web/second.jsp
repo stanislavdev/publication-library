@@ -25,7 +25,7 @@
 
         #publication td, #publication th {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 6px;
         }
 
         #publication tr:nth-child(even) {
@@ -107,6 +107,7 @@
             <th>Date</th>
             <th>Internet link</th>
             <th>Size in bytes</th>
+            <th>Key word</th>
         </tr>
         <%= loader.tableToHtmlSelectDigitalReferences(
                 Integer.parseInt(request.getParameter("id"))) %>

@@ -8,8 +8,9 @@ import model.dbservices.MySQLFactory;
 public abstract class FactoryDAO {
     private static FactoryDAO FACTORY_DAO;
 
-    public abstract DigitalPublicationDAO createDigitalPublicationDAO();
+    public abstract DigitalPublicationDao createDigitalPublicationDao();
     public abstract PaperPublicationDao createPaperPublicationDao();
+    public abstract WordDao createWordDao();
 
     public static FactoryDAO getInstance(){
         if( FACTORY_DAO == null ){
