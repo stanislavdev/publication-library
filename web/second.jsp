@@ -1,4 +1,5 @@
-<%@ page import="controller.JSPLoader" %><%--
+<%@ page import="controller.JSPLoader" %>
+<%@ page import="java.sql.Date" %><%--
   Created by IntelliJ IDEA.
   User: dvsta
   Date: 12.12.2017
@@ -121,6 +122,7 @@
             <th>Number of pages</th>
             <th>Date</th>
             <th>Name of magazine</th>
+            <th>Key word</th>
         </tr>
         <%= loader.tableToHtmlSelectPaperReferences(
                 Integer.parseInt(request.getParameter("id"))) %>

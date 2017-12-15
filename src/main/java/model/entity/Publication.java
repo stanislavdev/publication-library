@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Publication {
     private int id;
-    private int numberOfPages;
+    private Integer numberOfPages;
     private String author;
     private String name;
     private Date publicationDate;

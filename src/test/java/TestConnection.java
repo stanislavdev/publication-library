@@ -1,7 +1,10 @@
+import controller.JSPLoader;
 import model.dao.DigitalPublicationDao;
 import model.dao.PaperPublicationDao;
 import model.dbservices.MySQLFactory;
 import org.junit.Test;
+
+import java.sql.Date;
 
 /**
  * Created by dvsta on 02.12.2017.
@@ -32,6 +35,10 @@ public class TestConnection {
     public void testKeWords(){
         MySQLFactory mySQLFactory = new MySQLFactory();
         DigitalPublicationDao digitalPublicationDao = mySQLFactory.createDigitalPublicationDao();
-        System.out.println(digitalPublicationDao.findAllPublications());
+        JSPLoader loader = new JSPLoader();
+        System.out.println(digitalPublicationDao.searchPublication("44",
+                null, null, null, null));
+        System.out.println(loader.tableToHtmlSelectDigitalSearch("44",
+                "2017-12-01", null, null, null));
     }
 }

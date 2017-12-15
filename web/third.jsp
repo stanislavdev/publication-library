@@ -2,14 +2,14 @@
 <%@ page import="java.sql.Date" %><%--
   Created by IntelliJ IDEA.
   User: dvsta
-  Date: 03.12.2017
-  Time: 16:50
+  Date: 12.12.2017
+  Time: 1:14
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Library</title>
+    <title>Title</title>
     <style>
         #h2 {
             font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -26,7 +26,7 @@
 
         #publication td, #publication th {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 6px;
         }
 
         #publication tr:nth-child(even) {
@@ -74,10 +74,6 @@
             color: white;
         }
 
-        #labelID {
-            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        }
-
         input[type=text] {
             width: 7%;
             padding: 12px 20px;
@@ -92,25 +88,14 @@
         input[type=text]:focus {
             border: 3px solid #555;
         }
+
+        #label{
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        }
     </style>
 </head>
 <body>
-<form method="get" action="second.jsp">
-    <label id="labelID" for="refID">Show references publication by ID:</label>
-    <input type="search" id="refID" name="id">
-    <input type="submit" value="Show">
-</form>
-<form method="get" action="third.jsp">
-    <h2 id="h2">Search:</h2>
-    <label id="labelName" for="searchByName">Name:</label>
-    <input type="search" id="searchByName" name="name">
-    <input type="search" id="searchByAuthor" name="author">
-    <input type="search" id="searchByPages" name="pages">
-    <input type="date" id="searchByDate" name="date">
-    <input type="search" id="searchByWord" name="word">
-    <input type="submit" value="Search">
-</form>
-<form action="index.jsp">
+<form action="third.jsp">
     <%! JSPLoader loader = new JSPLoader(); %>
     <table id="publication">
         <td>Digital publications</td>
@@ -124,23 +109,12 @@
             <th>Size in bytes</th>
             <th>Key word</th>
         </tr>
-        <%= loader.tableToHtmlSelectDigital() %>
-
+        <%= loader.tableToHtmlSelectDigitalSearch(request.getParameter("pages"),
+                request.getParameter("author"), request.getParameter("name"),
+               request.getParameter("date"), request.getParameter("word")) %>
+        <%--<% out.println(loader.tableToHtmlSelectDigitalSearch(Integer.parseInt("44"),--%>
+                <%--"", "", new Date(2017-12-14), ""));%>--%>
     </table>
-    <table id="publication2">
-        <td>Paper publications</td>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Author</th>
-            <th>Number of pages</th>
-            <th>Date</th>
-            <th>Name of magazine</th>
-            <th>Key word</th>
-        </tr>
-        <%= loader.tableToHtmlSelectPaper() %>
-    </table>
-
 </form>
 </body>
 </html>

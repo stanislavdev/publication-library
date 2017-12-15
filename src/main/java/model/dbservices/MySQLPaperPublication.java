@@ -1,14 +1,15 @@
 package model.dbservices;
 
 import model.dao.PaperPublicationDao;
-import model.entity.DigitalPublication;
 import model.entity.PaperPublication;
 import model.entity.Word;
 
-import java.awt.print.Paper;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MySQLPaperPublication implements PaperPublicationDao {
     private static final String ID_PUBLICATION = "idpublication";
@@ -18,12 +19,28 @@ public class MySQLPaperPublication implements PaperPublicationDao {
     private static final String DATE_OF_PUBLICATION = "date_of_publication";
     private static final String PAPER_MAGAZINE = "name_of_paper_magazine";
 
-    private static final String SELECT_ALL_REFERENCES_BY_TYPE_QUERY = "SELECT idpublication," +
-            "name, author, number_of_pages, date_of_publication, name_of_paper_magazine " +
-            " FROM publication p" +
-            "  JOIN publication_has_publication publication2 " +
-            "    ON p.idpublication = publication2.publication_idpublication1 " +
-            " WHERE publication2.publication_idpublication = ? AND p.type_of_publication = 'Paper'";
+    Map<Integer, PaperPublication> paperPublicationMap = new HashMap<>();
+    Map<Integer, Word> wordMap = new HashMap<>();
+
+    private static final String SELECT_ALL_REFERENCES_BY_TYPE_QUERY = "SELECT\n" +
+            "  idpublication,\n" +
+            "  name,\n" +
+            "  author,\n" +
+            "  number_of_pages,\n" +
+            "  date_of_publication,\n" +
+            "  name_of_paper_magazine,\n" +
+            "  words.idwords,\n" +
+            "  words.word_value\n" +
+            "FROM publication p\n" +
+            "  LEFT JOIN publication_has_publication publication2\n" +
+            "    ON p.idpublication = publication2.publication_idpublication1\n" +
+            "  LEFT JOIN publication_has_words word \n" +
+            "    ON p.idpublication = word.publication_idpublication\n" +
+            "  LEFT JOIN words  \n" +
+            "    ON word.idwords = words.idwords\n" +
+            "WHERE publication2.publication_idpublication = ? \n" +
+            "      AND type_of_publication = 'Paper' " +
+            " ORDER BY idpublication, word.idwords";
 
     private Connection connection;
 
@@ -31,11 +48,24 @@ public class MySQLPaperPublication implements PaperPublicationDao {
         this.connection = connection;
     }
 
-    private static final String SELECT_ALL_BY_TYPE_QUERY = "SELECT * FROM publication " +
-            "WHERE  type_of_publication = 'Paper'";
+    private static final String SELECT_ALL_BY_TYPE_QUERY = "SELECT " +
+            "              idpublication, " +
+            "              name, " +
+            "              author, " +
+            "              number_of_pages, " +
+            "              date_of_publication, " +
+            "              name_of_paper_magazine, " +
+            "              words.idwords, " +
+            "              words.word_value " +
+            "              FROM publication p " +
+            "              LEFT JOIN publication_has_words word " +
+            "                ON p.idpublication = word.publication_idpublication " +
+            "              LEFT JOIN words ON word.idwords = words.idwords " +
+            "              WHERE type_of_publication = 'Paper' ORDER BY idpublication, word.idwords";
 
     @Override
-    public List<PaperPublication> searchPublication(int numberOfPages, String author, String name, Date publicationDate) {
+    public List<PaperPublication> searchPublication(String numberOfPages, String author, String name,
+                                                    String publicationDate, String word) {
         return null;
     }
 
@@ -45,7 +75,7 @@ public class MySQLPaperPublication implements PaperPublicationDao {
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_REFERENCES_BY_TYPE_QUERY);
             preparedStatement.setInt(1, publicationId);
             ResultSet resultSet = preparedStatement.executeQuery();
-            return parsePaperPublicationList(resultSet);
+            return createPaperPublicationList(resultSet);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -56,36 +86,49 @@ public class MySQLPaperPublication implements PaperPublicationDao {
         try {
             Statement preparedStatement = connection.createStatement();
             ResultSet resultSet = preparedStatement.executeQuery(SELECT_ALL_BY_TYPE_QUERY);
-            return parsePaperPublicationList(resultSet);
+            return createPaperPublicationList(resultSet);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private PaperPublication extractPaperPublication(ResultSet resultSet) {
-        PaperPublication result = new PaperPublication();
+    private List<PaperPublication> createPaperPublicationList(ResultSet resultSet) {
+        List<PaperPublication> resultList = new ArrayList<>();
         try {
-            result.setId(resultSet.getInt(ID_PUBLICATION));
-            result.setName(resultSet.getString(NAME_PUBLICATION));
-            result.setAuthor(resultSet.getString(AUTHOR_PUBLICATION));
-            result.setNumberOfPages(resultSet.getInt(NUMBER_OF_PAGES));
-            result.setPublicationDate(resultSet.getDate(DATE_OF_PUBLICATION));
-            result.setNameOfpaperMagazine(resultSet.getString(PAPER_MAGAZINE));
+            while (resultSet.next()) {
+                Word word = MySQLWord.extractWord(resultSet);
+                if (word.getWordValue() == null) {
+                    word.setWordValue(" - ");
+                }
+                PaperPublication result = new PaperPublication();
+                result.setId(resultSet.getInt(ID_PUBLICATION));
+                result.setName(resultSet.getString(NAME_PUBLICATION));
+                result.setAuthor(resultSet.getString(AUTHOR_PUBLICATION));
+                result.setNumberOfPages(resultSet.getInt(NUMBER_OF_PAGES));
+                result.setPublicationDate(resultSet.getDate(DATE_OF_PUBLICATION));
+                result.setNameOfpaperMagazine(resultSet.getString(PAPER_MAGAZINE));
+                result = makePaperPublicationUnique(paperPublicationMap, result);
+                word = makeWordUnique(wordMap, word);
+                result.getKeyWords().add(word);
+                if (!resultList.contains(result)) {
+                    resultList.add(result);
+                }
+
+            }
         } catch (SQLException e1) {
             e1.printStackTrace();
         }
-        return result;
+        return resultList;
     }
 
-    private List<PaperPublication> parsePaperPublicationList(ResultSet resultSet) {
-        try {
-            List<PaperPublication> result = new ArrayList<>();
-            while (resultSet.next()) {
-                result.add(extractPaperPublication(resultSet));
-            }
-            return result;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    private PaperPublication makePaperPublicationUnique(Map<Integer, PaperPublication> map,
+                                                        PaperPublication dp) {
+        map.putIfAbsent(dp.getId(), dp);
+        return map.get(dp.getId());
+    }
+
+    private Word makeWordUnique(Map<Integer, Word> map, Word w) {
+        map.putIfAbsent(w.getWordID(), w);
+        return map.get(w.getWordID());
     }
 }
