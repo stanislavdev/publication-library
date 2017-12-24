@@ -74,10 +74,6 @@
             color: white;
         }
 
-        #labelID {
-            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        }
-
         input[type=text] {
             width: 7%;
             padding: 12px 20px;
@@ -92,6 +88,11 @@
         input[type=text]:focus {
             border: 3px solid #555;
         }
+
+        label {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        }
+
     </style>
 </head>
 <body>
@@ -104,14 +105,18 @@
     <h2 id="h2">Search:</h2>
     <label id="labelName" for="searchByName">Name:</label>
     <input type="search" id="searchByName" name="name">
+    <label id="labelAuthor" for="searchByAuthor">Author:</label>
     <input type="search" id="searchByAuthor" name="author">
+    <label id="labelPages" for="searchByPages">Number of pages:</label>
     <input type="search" id="searchByPages" name="pages">
+    <label id="labelDate" for="searchByDate">Date:</label>
     <input type="date" id="searchByDate" name="date">
+    <label id="labelWord" for="searchByWord">Key word:</label>
     <input type="search" id="searchByWord" name="word">
     <input type="submit" value="Search">
 </form>
 <form action="index.jsp">
-    <%! JSPLoader loader = new JSPLoader(); %>
+    <%! private JSPLoader loader = new JSPLoader(); %>
     <table id="publication">
         <td>Digital publications</td>
         <tr>

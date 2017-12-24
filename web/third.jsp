@@ -88,10 +88,6 @@
         input[type=text]:focus {
             border: 3px solid #555;
         }
-
-        #label{
-            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        }
     </style>
 </head>
 <body>
@@ -114,6 +110,23 @@
                request.getParameter("date"), request.getParameter("word")) %>
         <%--<% out.println(loader.tableToHtmlSelectDigitalSearch(Integer.parseInt("44"),--%>
                 <%--"", "", new Date(2017-12-14), ""));%>--%>
+    </table>
+    <table id="publication2">
+        <td>Paper publications</td>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Number of pages</th>
+            <th>Date</th>
+            <th>Name of magazine</th>
+            <th>Key word</th>
+        </tr>
+        <%= loader.tableToHtmlSelectPaperSearch(request.getParameter("pages"),
+                request.getParameter("author"), request.getParameter("name"),
+                request.getParameter("date"), request.getParameter("word")) %>
+        <%--<% out.println(loader.tableToHtmlSelectDigitalSearch(Integer.parseInt("44"),--%>
+        <%--"", "", new Date(2017-12-14), ""));%>--%>
     </table>
 </form>
 </body>

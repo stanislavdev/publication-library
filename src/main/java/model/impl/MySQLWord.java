@@ -1,14 +1,12 @@
-package model.dbservices;
+package model.impl;
 
-import model.dao.WordDao;
 import model.entity.Word;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
-public class MySQLWord implements WordDao {
+public class MySQLWord {
     private Connection connection;
 
     private static final String ID_WORD = "words.idwords";
@@ -16,11 +14,6 @@ public class MySQLWord implements WordDao {
 
     public MySQLWord(Connection connection) {
         this.connection = connection;
-    }
-
-    @Override
-    public List<Word> findAll() {
-        return null;
     }
 
     static public Word extractWord(ResultSet resultSet) {

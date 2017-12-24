@@ -1,6 +1,6 @@
 package model.dao;
 
-import model.dbservices.MySQLFactory;
+import model.impl.MySQLFactory;
 
 /**
  * Created by dvsta on 08.12.2017.
@@ -10,7 +10,6 @@ public abstract class FactoryDAO {
 
     public abstract DigitalPublicationDao createDigitalPublicationDao();
     public abstract PaperPublicationDao createPaperPublicationDao();
-    public abstract WordDao createWordDao();
 
     public static FactoryDAO getInstance(){
         if( FACTORY_DAO == null ){

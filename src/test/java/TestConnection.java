@@ -1,10 +1,8 @@
 import controller.JSPLoader;
 import model.dao.DigitalPublicationDao;
 import model.dao.PaperPublicationDao;
-import model.dbservices.MySQLFactory;
+import model.impl.MySQLFactory;
 import org.junit.Test;
-
-import java.sql.Date;
 
 /**
  * Created by dvsta on 02.12.2017.

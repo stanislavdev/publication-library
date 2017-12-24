@@ -18,12 +18,12 @@ public class Publication {
     private List<Publication> references;
     private List<Word> keyWords = new ArrayList<>();
 
-    public Publication() {
+    Publication() {
     }
 
-    public Publication(int id, int numberOfPages, String author,
-                       String name, Date publicationDate,
-                       List<Publication> references, List<Word> keyWords) {
+    Publication(int id, int numberOfPages, String author,
+                String name, Date publicationDate,
+                List<Publication> references, List<Word> keyWords) {
         this.id = id;
         this.numberOfPages = numberOfPages;
         this.author = author;

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by dvsta on 02.12.2017.
  */
-public interface GenericDAO<T extends Publication> {
+public interface GenericPublicationDAO<T extends Publication> {
     public List<T> searchPublication( String numberOfPages, String author,
                                      String name,String publicationDate, String word);
 

@@ -11,7 +11,7 @@
 <head>
     <title>Title</title>
     <style>
-        #h2 {
+        h2 {
             font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
             font-size: 20px;
         }
@@ -95,6 +95,7 @@
     </style>
 </head>
 <body>
+<% if (!(request.getParameter("id").equals(""))) { %>
 <h2 id="label">References for publication №<%= request.getParameter("id") %> </h2>
 <form action="second.jsp">
     <%! JSPLoader loader = new JSPLoader(); %>
@@ -128,5 +129,8 @@
                 Integer.parseInt(request.getParameter("id"))) %>
     </table>
 </form>
+<% } else { %>
+    <h2>INPUT ID, PLEASE!</h2>
+<% }%>
 </body>
 </html>

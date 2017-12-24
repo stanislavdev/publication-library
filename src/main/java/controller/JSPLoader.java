@@ -3,10 +3,9 @@ package controller;
 
 import model.dao.DigitalPublicationDao;
 import model.dao.PaperPublicationDao;
-import model.dbservices.MySQLFactory;
+import model.impl.MySQLFactory;
 import model.entity.DigitalPublication;
 import model.entity.PaperPublication;
-import model.entity.Word;
 
 import java.util.List;
 
@@ -39,10 +38,18 @@ public class JSPLoader {
     }
 
     public String tableToHtmlSelectDigitalSearch(String numberOfPages, String author, String name,
-                                                 String publicationDate, String word) {
+                                                  String publicationDate, String word) {
         MySQLFactory mySQLFactory = new MySQLFactory();
         DigitalPublicationDao digitalPublicationDao = mySQLFactory.createDigitalPublicationDao();
         return createFullTableFromDigitalList(digitalPublicationDao.searchPublication(
+                numberOfPages, author, name, publicationDate, word));
+    }
+
+    public String tableToHtmlSelectPaperSearch(String numberOfPages, String author, String name,
+                                                 String publicationDate, String word) {
+        MySQLFactory mySQLFactory = new MySQLFactory();
+        PaperPublicationDao paperPublicationDao = mySQLFactory.createPaperPublicationDao();
+        return createFullTableFromPaperList(paperPublicationDao.searchPublication(
                 numberOfPages, author, name, publicationDate, word));
     }
 

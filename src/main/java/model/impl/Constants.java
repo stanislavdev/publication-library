@@ -1,4 +1,4 @@
-package model.dbservices;
+package model.impl;
 
 /**
  * Created by dvsta on 02.12.2017.
